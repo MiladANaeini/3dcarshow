@@ -1,34 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Suspense } from 'react'
+import { Canvas } from '@react-three/fiber'
+import './index.css'
+import { OrbitControls, PerspectiveCamera } from '@react-three/drei'
+import { Ground } from './Ground'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+function ShowCar() {
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <OrbitControls target={[0, 0.35, 0]} maxPolarAngle={1.45}/>
+    <PerspectiveCamera makeDefault fov={50} position={[3, 2, 5]}/>
+
+    <color args={[0,0,0]} attach={"background"}/>
+  
+     <spotLight
+     color={[1, 0.25, 0,7]}
+     intensity={2}
+     angle={0.6}
+     penumbra={0.5}
+     position={[5, 5, 0]}
+     castShadow
+     shadow-bia={-0.0001}
+     />
+     <spotLight
+       color={[0.14, 0.5, 1]}
+       intensity={2}
+       angle={0.6}
+       penumbra={0.5}
+       position={[5, 5, 0]}
+       castShadow
+       shadow-bias={-0.0001}
+       />
+       <Ground/>
     </>
+  )
+}
+
+
+function App() {
+  return (
+    <Suspense fallback={null}>
+     <Canvas shadows>
+      <ShowCar/>
+     </Canvas>
+    </Suspense>
   )
 }
 
