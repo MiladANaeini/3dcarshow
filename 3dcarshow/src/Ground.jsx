@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useLoader } from "@react-three/fiber";
+import { useFrame,useLoader } from "@react-three/fiber";
 import { MeshReflectorMaterial } from "@react-three/drei";
 import { RepeatWrapping, TextureLoader } from "three";
 import * as THREE from 'three';
@@ -18,10 +18,14 @@ export function Ground() {
       t.repeat.set(5, 5);
       t.offset.set(0, 0);
     });
-
-    // Update property name to colorSpace
     normal.colorSpace = THREE.LinearSRGBColorSpace;
   }, [normal, roughness]);
+
+  useFrame((state, delta) => {
+    let t = -state.clock.getElapsedTime() * 0.128;
+    roughness.offset.set(0, t % 1);
+    normal.offset.set(0, t % 1);
+  });
 
 
   return (
