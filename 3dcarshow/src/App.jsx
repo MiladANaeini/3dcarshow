@@ -14,10 +14,10 @@ function ShowCar() {
   
      <spotLight
      color={[1, 0.25, 0,7]}
-     intensity={20}
+     intensity={200}
      angle={0.6}
      penumbra={0.5}
-     position={[5, 5, 0]}
+     position={[-5, 5, 0]}
      castShadow
      shadowBias={-0.0001}
      />
